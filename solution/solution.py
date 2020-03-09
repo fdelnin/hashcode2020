@@ -1,4 +1,4 @@
-import numpy
+# submitted score: 23,727,620
 
 class Library:
     def __init__(self, id, n_books, signup, n_ship, all_books,books_dicts, remaining_days):
@@ -14,17 +14,22 @@ class Library:
             totpoints += books_dicts[b]
 
         giorni = self.n_books/self.n_ship
-        if self.n_books%self.n_ship!=0:
+
+        if self.n_books % self.n_ship != 0:
             giorni += 1
         giorni+= self.signup
 
         if giorni > remaining_days:
          
-            diff = giorni-remaining_days
+            diff = giorni - remaining_days
             giorni = remaining_days
-            totpoints = totpoints-((totpoints/self.n_books)*diff*self.n_ship)
-        if giorni == 0:
-            self.my_points = 0
+            totpoints = totpoints - ((totpoints/self.n_books) * diff * self.n_ship)
+
+            if giorni == 0:
+                self.my_points = 0
+            else:
+                self.my_points = totpoints/giorni
+        
         else:
             self.my_points = totpoints/giorni
 
@@ -99,7 +104,7 @@ def used_days(total_days, libs):
                 
                 remaining -= l.signup
                 # reorder if there are days left
-                # !! This is very slow
+                # !! This is very slow 
                 if remaining > 0:
                    reorder = True
                 libs_considered.append((l.id, l.all_books))
